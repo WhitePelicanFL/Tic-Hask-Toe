@@ -6,23 +6,30 @@ import Data.Char (toUpper)
 
 -- Q#01
 
-_SIZE_ = undefined
+_SIZE_ = 3
 
 -- Q#02
 
-_DISPLAY_LOGO_ = undefined
+_DISPLAY_LOGO_ :: Bool
+_DISPLAY_LOGO_ = True
+d = _DISPLAY_LOGO_
+
 
 -- Q#03
 
-convertRowIndex = undefined
+convertRowIndex :: Char -> Int
+convertRowIndex char = fromEnum (toUpper (char)) - 65
+
 
 -- Q#04
 
-_INVALID_MOVE_ = undefined
+_INVALID_MOVE_ :: (Int, Int)
+_INVALID_MOVE_ = (-1, -1)
 
 -- Q#05
 
-_SEP_ = undefined
+_SEP_ :: [Char]
+_SEP_ = ['_','|','_']
 
 -- *** Assignment 1-2 *** --
 
