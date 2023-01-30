@@ -1,6 +1,7 @@
 module A1 where
 
 import Data.Char (toUpper)
+import Control.Applicative (Alternative(empty))
 
 -- *** Assignment 1-1 *** --
 
@@ -57,10 +58,19 @@ getFirstPlayerGd firstPlayerGd
   | otherwise              = Neither
 
 -- Q#10
-showGameState gs = undefined
-
+showGameState :: GameState -> String
+showGameState gameStateString = case gameStateString of
+  GameIsInProgress -> "Game is in progress..."
+  GameIsTied       -> "Game is currently tied..."
+  OWonTheGame      -> "Player O won the game."
+  XWonTheGame      -> "Player X won the game."
+  
 -- Q#11
-switchPlayer = undefined
+switchPlayer :: Player -> Player
+switchPlayer player
+  | player == X = O
+  | player == O = X
+  | otherwise = player
 
 -- Q#12
 showSquare = undefined
