@@ -2,6 +2,7 @@ module A1 where
 
 import Data.Char (toUpper)
 import Control.Applicative (Alternative(empty))
+import Data.Bits (Bits(xor))
 
 -- *** Assignment 1-1 *** --
 
@@ -31,7 +32,7 @@ _SEP2_ = "_|_"
 -- *** Assignment 1-2 *** --
 
 -- Q#06
-data Square = X | O | Neither deriving (Show, Eq)
+data Square = X | O | Empty deriving (Show, Eq)
 
 -- not so sure about this one
 type Move   = (Int, Int)
@@ -55,7 +56,6 @@ getFirstPlayerGd :: Bool -> Player
 getFirstPlayerGd firstPlayerGd
   | firstPlayerGd == True  = X
   | firstPlayerGd == False = O
-  | otherwise              = Neither
 
 -- Q#10
 showGameState :: GameState -> String
@@ -66,11 +66,43 @@ showGameState gameStateString = case gameStateString of
   XWonTheGame      -> "Player X won the game."
   
 -- Q#11
+isSingleton :: [a] -> Bool
+isSingleton (x : []) = True -- 1 element
+isSingleton [] = True -- 0 element
+isSingleton (x : xs) = False
+
 switchPlayer :: Player -> Player
-switchPlayer player
-  | player == X = O
-  | player == O = X
-  | otherwise = player
+switchPlayer x
+ | x == X    = O
+ | x == O    = X
+ | otherwise = Empty
+--switchPlayer' :: Player ->
+
 
 -- Q#12
-showSquare = undefined
+showSquare :: Square -> String
+showSquare x = case x of
+ X -> "X"
+ O -> "O"
+ _ -> "_"
+
+
+third :: [a] -> a
+third (a : (b : (c : ds))) = c
+
+thrd :: [a] -> a
+thrd xs = head (tail (tail (xs)))
+
+isNull :: [a] -> Bool
+isNull (x : xs) = False
+isNull []       = True
+
+
+
+_ODDS_ :: [Int]
+_ODDS_ = [1, 3 .. 10]
+
+-- _PRIMES_         = sieve [2 ..]
+-- nPrimes n        = take n _PRIMES_
+-- primesUpTo limit = takeWhile (<= limit) _PRIMES_
+

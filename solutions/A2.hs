@@ -4,8 +4,11 @@ module A2 where
 
 import A1
 import Data.List (intercalate)
+import Data.Bits (Bits(xor))
 
 -- *** Assignment 2-1 *** --
+
+
 
 -- Q#01
 
