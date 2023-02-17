@@ -1,12 +1,14 @@
 module A1 where
 
-import Data.Char (toUpper)
+import Data.Char --(toUpper)
 import Control.Applicative (Alternative(empty))
 import Data.Bits (Bits(xor))
+import Data.List
 
 -- *** Assignment 1-1 *** --
 
 -- Q#01
+_SIZE_ :: Int
 _SIZE_ = 3
 
 -- Q#02
@@ -16,7 +18,7 @@ d = _DISPLAY_LOGO_
 
 -- Q#03
 convertRowIndex :: Char -> Int
-convertRowIndex char = fromEnum (toUpper (char)) - 65
+convertRowIndex char = fromEnum (toUpper char) - 65
 
 -- Q#04
 _INVALID_MOVE_ :: (Int, Int)
@@ -32,7 +34,7 @@ _SEP2_ = "_|_"
 -- *** Assignment 1-2 *** --
 
 -- Q#06
-data Square = X | O | Empty deriving (Show, Eq)
+data Square = X | O | E deriving (Show, Eq)
 
 -- not so sure about this one
 type Move   = (Int, Int)
@@ -43,9 +45,9 @@ data GameState = GameIsInProgress | GameIsTied | OWonTheGame | XWonTheGame deriv
 -- Q#08
 -- Some Synonyms
 type Player = Square
-type Row    = Square
-type Line   = Square
-type Board  = Row
+type Row    = [Square]
+type Line   = [Square]
+type Board  = [Row]
 
 -- Q#09
 getFirstPlayerIf :: Bool -> Player
@@ -75,8 +77,7 @@ switchPlayer :: Player -> Player
 switchPlayer x
  | x == X    = O
  | x == O    = X
- | otherwise = Empty
---switchPlayer' :: Player ->
+ | otherwise = E
 
 
 -- Q#12
