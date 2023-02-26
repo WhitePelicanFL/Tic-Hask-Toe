@@ -4,24 +4,42 @@ import A1
 import A2
 
 import Data.List (transpose)
+import GHC.Base (VecElem(Int16ElemRep))
+
 
 -- *** Assignment 3-1 ***
 
+
+{-stringChecker :: IO ()
+stringChecker = do
+    putStrLn "Enter a string: "
+    firstString <- getLine
+    putStrLn "Enter next string: "
+    secndString <- getLine
+    putStrLn "Enter next string: "
+    thirdString <- getLine
+    let msg = concat [length firstString, " , ", lenth secndString, " , ", length thirdString]
+-}
 -- Q#01
 
-showInts = undefined
+showInts :: [Int] -> [String]
+showInts [] = []
+showInts (x : xs) = show x : showInts xs
 
 
-_HEADER_ = undefined
+_HEADER_ :: String
+_HEADER_ = " " ++ formatLine (showInts _RANGE_)
 
 -- Q#02
-
-showSquares = undefined
+showSquares :: Row -> [String]
+showSquares [] = []
+showSquares xs = map show xs
 
 
 -- Q#03
-
-formatRows = undefined
+formatRows :: [Row] -> [String]
+formatRows []      = []
+formatRows [x, xs] = formatLine (showSquares x) : formatRows [xs]
 
 -- Q#04
 

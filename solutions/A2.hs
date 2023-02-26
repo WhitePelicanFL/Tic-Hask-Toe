@@ -11,6 +11,7 @@ import Control.Concurrent (yield)
 import Control.Monad.ST.Lazy (strictToLazyST)
 import Text.ParserCombinators.ReadP (string, between)
 import Data.Char (isAlpha, toUpper)
+import System.Random.Stateful (globalStdGen)
 
 -- *** Assignment 2-1 *** --
 isPrime :: Int -> Bool
@@ -142,11 +143,9 @@ indexRowStrings str = case str of
 -- Q#07
 formatLine :: [String] -> String
 formatLine str = case str of
-  [x, xs, xxs] -> _SEP_ ++ intercalate _SEP_ str
+  [x, xs, xxs] -> _SEP_ ++ intercalate _SEP_ str ++ _SEP_
   _            -> "_|___|___|___|_"
   
-
-
 -- *** Assignment 2-2 *** --
 
 -- Q#08
@@ -170,7 +169,6 @@ replaceSquareInRow player col row
   | player /= X && player /= O  = row  -- invalid player
   | not (col `elem` _RANGE_)    = row  -- invalid col
   | null row                    = _EMPTY_ROW_ 
-  | otherwise                   = 
-      where
-        (r, rs) = splitAt col row
+  | otherwise  go 
+      (r, rs) = splitAt col row
 -}
