@@ -4,11 +4,9 @@ import A1
 import A2
 
 import Data.List (transpose)
-import GHC.Base (VecElem(Int16ElemRep))
 
 
 -- *** Assignment 3-1 ***
-
 
 {-stringChecker :: IO ()
 stringChecker = do
@@ -33,31 +31,46 @@ _HEADER_ = " " ++ formatLine (showInts _RANGE_)
 -- Q#02
 showSquares :: Row -> [String]
 showSquares [] = []
-showSquares xs = map show xs
+showSquares xs = map showSquare xs
 
 
 -- Q#03
 formatRows :: [Row] -> [String]
-formatRows []      = []
-formatRows [x, xs] = formatLine (showSquares x) : formatRows [xs]
+formatRows []       = []
+formatRows (r : rs) = formatLine (showSquares r) : formatRows rs
 
 -- Q#04
-
-isColEmpty = undefined
+isColEmpty :: Row -> Int -> Bool
+isColEmpty r c = torf where
+  (xs, ys) = splitAt c r
+  torf
+    | c < 0   = False
+    | null ys = False
+    | head ys == X || head ys == O = False
+    | otherwise = True
 
 -- Q#05
+dropFrstCol :: Board -> Board
+dropFrstCol [] = []
+dropFrstCol (x : xs) = tail x : dropFrstCol xs   
+   
 
-dropFirstCol = undefined
+dropMidlCol :: Board -> Board
+dropMidlCol = undefined
 
+dropLastCol :: Board -> Board
+dropLastCol [] = []
+dropLastCol (x : xs) = init x : dropLastCol xs   
 
-dropLastCol = undefined
 
 -- Q#06
+getDiagTLBR :: Board -> Line
+getDiagTLBR [] = []
+getDiagTLBR (x : xs) = head x : getDiagTLBR (dropFrstCol xs)
 
-getDiag1 = undefined
-
-
-getDiag2 = undefined
+getDiagTRBL :: Board -> Line
+getDiagTRBL [] = []
+getDiagTRBL (x : xs) = last x : getDiagTRBL (dropLastCol xs)
 
 
 getAllLines = undefined
@@ -79,3 +92,19 @@ isWinningLine = undefined
 -- Q#10
 
 isValidMove = undefined
+
+
+-- Polymorphic Type
+data Pair a b = MkPair a b deriving Show
+
+x :: Pair String Int
+x = MkPair "p" 25
+
+--y :: Pair (String, Int)
+--y = MkPair ("p", 25)
+
+z :: Pair Int Char
+z = MkPair 7 'a'
+
+p2t :: Pair a b -> (a, b)
+p2t (MkPair a b) = (a, b)

@@ -50,14 +50,13 @@ type Line   = [Square]
 type Board  = [Row]
 
 -- Q#09
-getFirstPlayerIf :: Bool -> Player
-getFirstPlayerIf firstPlayerIf =
-  if firstPlayerIf == True then X else O
+getFirstPlayerIF :: Bool -> Player
+getFirstPlayerIF firstPlayerIf = if firstPlayerIf then X else O
 
-getFirstPlayerGd :: Bool -> Player
-getFirstPlayerGd firstPlayerGd
-  | firstPlayerGd == True  = X
-  | firstPlayerGd == False = O
+getFirstPlayerGD :: Bool -> Player
+getFirstPlayerGD firstPlayerGd
+  | firstPlayerGd = X
+  | otherwise     = O
 
 -- Q#10
 showGameState :: GameState -> String
@@ -69,9 +68,9 @@ showGameState gameStateString = case gameStateString of
   
 -- Q#11
 isSingleton :: [a] -> Bool
-isSingleton (x : []) = True -- 1 element
-isSingleton [] = True -- 0 element
-isSingleton (x : xs) = False
+isSingleton []       = False -- 0 element
+isSingleton (x : []) = True  -- 1 element
+isSingleton _        = False -- more than 1 element
 
 switchPlayer :: Player -> Player
 switchPlayer x

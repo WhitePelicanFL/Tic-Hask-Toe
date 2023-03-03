@@ -1,4 +1,5 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# LANGUAGE BlockArguments #-}
 
 module A2 where
 
@@ -29,12 +30,6 @@ promptPlayer :: Player -> String
 promptPlayer x = case x of
  E  -> "Invalid Player...try again."
  _  -> concat ["Player ", showSquare x, ", please enter a row and column position (ex. A2)"]
-
-switchPlayer :: Player -> Player
-switchPlayer x
- | x == X    = O
- | x == O    = X
- | otherwise = E
 
 -- Q#02
 _RANGE_  = [0 .. _SIZE_ - 1]
@@ -67,9 +62,9 @@ _EMPTY_BOARD_ = replicate _SIZE_ _EMPTY_ROW_
 --_TIED_BOARD_ :: Board
 _TIED_BOARD_ =
   [
-    [X, O, O]
+    [X, O, X]
   , [O, X, O]
-  , [O, X, X]
+  , [X, O, X]
   ]
 
 
@@ -141,11 +136,15 @@ indexRowStrings str = case str of
   _  -> zip _UPPER_ALPHA_ str
  
 -- Q#07
+{-
 formatLine :: [String] -> String
 formatLine str = case str of
-  [x, xs, xxs] -> _SEP_ ++ intercalate _SEP_ str ++ _SEP_
-  _            -> "_|___|___|___|_"
-  
+  [x, xs, xxs] -> _SEP2_ ++ intercalate _SEP2_ str ++ _SEP2_
+  _            -> _SEP2_ ++_SEP2_ ++ _SEP2_ ++ _SEP2_
+-}
+formatLine :: [String] -> String
+formatLine str = _SEP2_ ++ intercalate _SEP2_ str ++ _SEP2_
+
 -- *** Assignment 2-2 *** --
 
 -- Q#08
@@ -158,17 +157,48 @@ isMoveInBounds (x, y) = (x >= 0 && y >= 0) && (x <= _SIZE_ && y <= _SIZE_)
 stringToMove :: String -> Move
 stringToMove []      = _INVALID_MOVE_
 stringToMove [_]     = _INVALID_MOVE_
-stringToMove [x, y]  = if (elem x "abcdABCD" && elem y "01234") then 
+stringToMove [x, y]  = if elem x "abcdABCD" && elem y "01234" then 
                        (convertRowIndex x, readDigit y) else _INVALID_MOVE_
 stringToMove _       = _INVALID_MOVE_
  
+greet = "welcome " ++ trainer ++ "!"
+  where
+    trainer = "Eddie"
+
+--thank = "Arigato " ++ trainer ++ "!"
+
+isNull' :: [a] -> Bool
+isNull' []       = True
+isNull' (x : xs) = False
+
+head' :: [a] -> a
+head' (x : xs) = x
+
+append :: String -> (String -> String)
+append x y = x ++ y
+
+
 -- Q#10
-{-
 replaceSquareInRow :: Player -> Int -> Row -> Row
-replaceSquareInRow player col row 
-  | player /= X && player /= O  = row  -- invalid player
-  | not (col `elem` _RANGE_)    = row  -- invalid col
-  | null row                    = _EMPTY_ROW_ 
-  | otherwise  go 
-      (r, rs) = splitAt col row
--}
+replaceSquareInRow p c r = xs ++ ys' where
+    (xs, ys) = splitAt c r
+    ys'
+      | c < 0     = ys
+      | null ys   = []
+      | otherwise = p : tail ys
+
+rsO :: Int -> Row -> Row
+rsO c r = xs ++ ys' where
+    (xs, ys) = splitAt c r
+    ys'
+      | c < 0     = ys
+      | null ys   = []
+      | otherwise = O : tail ys
+
+rsX :: Int -> Row -> Row
+rsX c r = xs ++ ys' where
+    (xs, ys) = splitAt c r
+    ys'
+      | c < 0     = ys
+      | null ys   = []
+      | otherwise = X : tail ys
