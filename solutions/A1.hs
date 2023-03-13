@@ -78,6 +78,10 @@ switchPlayer x
  | x == O    = X
  | otherwise = E
 
+isValidPlayer :: Player -> Bool
+isValidPlayer x
+ | x == X || x == O = True
+ | otherwise        = False
 
 -- Q#12
 showSquare :: Square -> String

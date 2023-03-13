@@ -62,17 +62,16 @@ _EMPTY_BOARD_ = replicate _SIZE_ _EMPTY_ROW_
 --_TIED_BOARD_ :: Board
 _TIED_BOARD_ =
   [
-    [X, O, X]
+    [X, O, O]
+  , [O, X, X]
   , [O, X, O]
-  , [X, O, X]
   ]
 
-
-isTied' :: Board -> Bool
-isTied' []       = True
-isTied' (x : xs)
+isTied :: Board -> Bool
+isTied []       = True
+isTied (x : xs)
  | E `elem` x    = False
- | otherwise = isTied' xs
+ | otherwise     = isTied xs
 
 
 elem' :: Eq a => a -> [a] -> Bool
@@ -181,24 +180,24 @@ append x y = x ++ y
 -- Q#10
 replaceSquareInRow :: Player -> Int -> Row -> Row
 replaceSquareInRow p c r = xs ++ ys' where
-    (xs, ys) = splitAt c r
-    ys'
-      | c < 0     = ys
-      | null ys   = []
-      | otherwise = p : tail ys
+  (xs, ys) = splitAt c r
+  ys'
+    | c < 0     = ys
+    | null ys   = []
+    | otherwise = p : tail ys
 
 rsO :: Int -> Row -> Row
 rsO c r = xs ++ ys' where
-    (xs, ys) = splitAt c r
-    ys'
-      | c < 0     = ys
-      | null ys   = []
-      | otherwise = O : tail ys
+  (xs, ys) = splitAt c r
+  ys'
+    | c < 0     = ys
+    | null ys   = []
+    | otherwise = O : tail ys
 
 rsX :: Int -> Row -> Row
 rsX c r = xs ++ ys' where
-    (xs, ys) = splitAt c r
-    ys'
-      | c < 0     = ys
-      | null ys   = []
-      | otherwise = X : tail ys
+  (xs, ys) = splitAt c r
+  ys'
+    | c < 0     = ys
+    | null ys   = []
+    | otherwise = X : tail ys
