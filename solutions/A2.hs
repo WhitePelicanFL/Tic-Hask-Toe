@@ -116,11 +116,11 @@ pokemonSum xs = foldr ((+) . snd) 0 xs
 
 --pokemonSum (a : as) = (snd a) + pokemonSum as
 --pokemonSum = foldr (\(x : xs) n -> snd x + n) 0 xs
-($) :: (a -> b) -> a -> b
-($) f x = f x
+--($) :: (a -> b) -> a -> b
+--($) f x = f x
 
-(%) :: (a -> a) -> a -> a
-(%) f x = f (f x)
+--(%) :: (a -> a) -> a -> a
+--(%) f x = f (f x)
 --(%) f x = f . (f x)
 
 
@@ -156,7 +156,7 @@ isMoveInBounds (x, y) = (x >= 0 && y >= 0) && (x <= _SIZE_ && y <= _SIZE_)
 stringToMove :: String -> Move
 stringToMove []      = _INVALID_MOVE_
 stringToMove [_]     = _INVALID_MOVE_
-stringToMove [x, y]  = if elem x "abcdABCD" && elem y "01234" then 
+stringToMove [x, y]  = if elem x "abcABC" && elem y "012" then 
                        (convertRowIndex x, readDigit y) else _INVALID_MOVE_
 stringToMove _       = _INVALID_MOVE_
  

@@ -96,7 +96,7 @@ prependRowIndices s   = workerF (indexRowStrings s)
     workerF :: [(Char, String)] -> [String]
     workerF []              = []
     workerF ((c, str) : sl) = (c : str) : workerF sl
-  
+
 -- Q#09
 isWinningLine :: Player -> Line -> Bool
 isWinningLine _ [] = False

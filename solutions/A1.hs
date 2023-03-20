@@ -4,6 +4,9 @@ import Data.Char --(toUpper)
 import Control.Applicative (Alternative(empty))
 import Data.Bits (Bits(xor))
 import Data.List
+--import System.Console.ANSI (getTerminalSize)
+import Data.Maybe
+
 
 -- *** Assignment 1-1 *** --
 
@@ -62,7 +65,7 @@ getFirstPlayerGD firstPlayerGd
 showGameState :: GameState -> String
 showGameState gameStateString = case gameStateString of
   GameIsInProgress -> "Game is in progress..."
-  GameIsTied       -> "Game is currently tied..."
+  GameIsTied       -> "Game is tied..."
   OWonTheGame      -> "Player O won the game."
   XWonTheGame      -> "Player X won the game."
   

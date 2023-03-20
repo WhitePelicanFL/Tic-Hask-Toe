@@ -13,7 +13,18 @@ import A3 hiding (
   )
 
 -- *** Assignment 4-1 *** --
+_X_WIN_ :: Board
+_X_WIN_ = [ [X, O, O]
+          , [O, X, O]
+          , [O, O, X]
+          ]
 
+_O_WIN_ :: Board
+_O_WIN_ = [ [O, X, O]
+          , [X, X, O]
+          , [X, O, O]
+          ]
+   
 -- Q#01
 _HEADER_ :: String
 _HEADER_ = " " ++ formatLine (map show _RANGE_)
@@ -48,24 +59,41 @@ isWinningLine_ p l  = null (filter (\s -> p /= s) l) -- the filter returns a lis
 -- *** Assignment 4-2 *** --
 
 -- Q#07
-
-isWinningLine = undefined
+isWinningLine :: Player -> Line -> Bool
+isWinningLine _ [] = False
+isWinningLine E _  = False
+isWinningLine p l  = foldr (\s b -> p == s && b) True l
 
 -- Q#08
-
-hasWon = undefined
+hasWon :: Player -> Board -> Bool
+hasWon _ []               = False
+hasWon E _                = False
+hasWon player board  = foldr (\line bTorF -> isWinningLine player line || bTorF) False (getAllLines board)
 
 -- Q#09
+getGameState :: Board -> GameState
+getGameState [] = GameIsInProgress
+getGameState b
+  | hasWon X b  = XWonTheGame
+  | hasWon O b  = OWonTheGame
+  | isTied b    = GameIsTied
+  | otherwise   = GameIsInProgress
 
-getGameState = undefined
+playMove :: Player -> Board -> Move -> (GameState, Board)
+playMove _ [] _   = (GameIsInProgress, [])
+playMove E b _    = (GameIsInProgress, b)
+playMove p b m    = (gmSt, brd)
+  where
+    brd  = putSquare p b m
+    gmSt = getGameState brd
 
-
-playMove = undefined
 
 -- Q#10
+prependRowIndices :: [String] -> [String]
+prependRowIndices []  = []
+prependRowIndices s   = zipWith (:) _UPPER_ALPHA_ s
 
-prependRowIndices = undefined
 
 -- Q#11
-
-formatBoard = undefined
+formatBoard :: Board -> String
+formatBoard b = unlines $ _HEADER_ : prependRowIndices (formatRows b)
