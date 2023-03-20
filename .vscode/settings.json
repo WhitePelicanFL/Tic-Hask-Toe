@@ -1,5 +1,5 @@
 {
-  "workbench.colorTheme": "Dracula",
+  "workbench.colorTheme": "Visual Studio Dark",
   "editor.fontSize": 16,
   "workbench.iconTheme": "vscode-icons",
   "haskell.plugin.ghcide-type-lenses.globalOn": false,
